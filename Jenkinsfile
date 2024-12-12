@@ -1,4 +1,4 @@
-
+#!groovy
 pipeline {
     agent any
 
@@ -6,7 +6,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code from repository...'
-                checkout scm
             }
         }
 
