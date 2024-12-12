@@ -6,6 +6,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo 'Checking out code from repository...'
+                checkout scm
             }
         }
 
