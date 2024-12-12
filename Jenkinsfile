@@ -119,7 +119,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
+                withCredentials([usernamePassword(credentialsId:'dockerHub',paswordVariable='password', usernameVariable='username')]) {
+                    sh"""
+                    docker build -t ${username}/nif-validator .
+                    docker login -u ${username} -p ${password}
+                    docker push ${username}/nif-validator
+                    """
+                }
             }
         }
     }
