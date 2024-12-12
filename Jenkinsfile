@@ -134,7 +134,9 @@ pipeline {
             echo 'Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed. Please check the logs.'
+            mail to: 'miguelsilvalac15@gmail.com',
+            subject: "Faileeeeeeeeed: ${currentBuild.fullDisplayName}",
+            body: "cabooooooom"
         }
     }
 }
