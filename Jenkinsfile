@@ -124,7 +124,7 @@ pipeline {
                     sh"""
                     docker build -t ${username}/nif-validator .
                     docker login -u ${username} -p ${passwd}
-                    docker push nif-validator
+                    docker push ${username}/nif-validator
                     """
                     }
             }
