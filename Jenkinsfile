@@ -49,9 +49,31 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Coverage report') {
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
+                }
+            }
             steps {
-                echo 'Running tests...'
+                sh"""
+                python3 -m coverage run --source=. -m pytest tests
+                python3 -m coverage report -m
+                python3 -m coverage report html
+                """
+            }
+            post {
+                always {
+                    publishHTML(target:[
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'htmlcov',
+                        reportFiles: 'index.html',
+                        reportName: 'Coverage Report'
+                    ])
+                }
             }
         }
 
