@@ -58,7 +58,7 @@ pipeline {
             }
             steps {
                 sh"""
-                python3 -m coverage run --source=. -m pytest tests
+                python3 -m coverage run --source=. --omit=tests/* -m pytest tests
                 python3 -m coverage report -m
                 python3 -m coverage report html
                 """
