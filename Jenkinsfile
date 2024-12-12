@@ -1,17 +1,45 @@
 #!groovy
+/*
+* 20241212 Miguel Silva
+* CI/CD on NIF validator
+*/
+
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
-
+    environment {
+        HOME = "${env.WORKSPACE}"
+    }
     stages {
-        stage('Checkout') {
+        stage('Create a docker environment') {
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
+                }
+            }
             steps {
-                echo 'Checking out code from repository...'
+                sh"""
+                export PIP_DISABLE_PIP_VERSION_CHECK=1
+                export PYTHONDONTWRITEBYTECODE=1
+                export PYTHONUNBUFFERED=1
+                export PATH="$HOME/.local/bin:${PATH}"
+                # Install python libraries
+                pip install --user -r requirements.txt
+                pip install --user -r requirements-test.txt
+                """
             }
         }
 
-        stage('Build') {
+        stage('Unit tests') {
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
+                }
+            }
             steps {
-                echo 'Building the application...'
+                sh 'python 3 -m pytest tests/'
             }
         }
 
