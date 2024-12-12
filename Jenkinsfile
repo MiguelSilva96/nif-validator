@@ -102,6 +102,18 @@ pipeline {
                         sh 'python3 -m flake8 . --exclude site-packages --exit-zero'
                     }
                 }
+                stage('Cyclomatic complexity analysis') { 
+                    agent {
+                        docker {
+                            image 'python:3.11-slim'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh 'python3 -m radon cc . -a -s --exclude site-packages'
+                    }
+                }
+                
             }
         }
 
