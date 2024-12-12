@@ -25,5 +25,3 @@ Python NIF Validator
     image ttl.sh/xxxx-yyyy-nnnn-2a2222-4b44 is available for 1 hour
     
     ttl.sh is contributed by Replicated (www.replicated.com)
-
-    asd
