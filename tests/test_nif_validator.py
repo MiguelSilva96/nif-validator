@@ -10,7 +10,7 @@ def test_positive():
 
 
 def test_negative():
-    db = ['292849681', '245382343', '12158895', '59288905000', '999999999', '123', '639566468']
+    db = ['292849680', '245382343', '12158895', '59288905000', '999999999', '123', '639566468']
     for nif in db:
         print('[-] nif: {}'.format(nif))
         assert validator.valida_nif(nif) == False
