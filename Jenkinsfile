@@ -39,7 +39,13 @@ pipeline {
                 }
             }
             steps {
-                sh 'python3 -m pytest tests/'
+                sh 'python3 -m pytest --junitxml results.xml tests/'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'result.xml', fingerprint: true
+                    junit 'results.xml'
+                }
             }
         }
 
