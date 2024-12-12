@@ -91,6 +91,17 @@ pipeline {
                         echo "TODO: user interface tests"
                     }
                 }
+                stage('PEP8 verification') { 
+                    agent {
+                        docker {
+                            image 'python:3.11-slim'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh 'python3 -m flake8 . --exclude site-packages'
+                    }
+                }
             }
         }
 
