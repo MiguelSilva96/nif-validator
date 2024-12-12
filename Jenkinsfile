@@ -79,12 +79,14 @@ pipeline {
         stage('Quality analysis') {
             parallel {
                 stage('Integration tests') {
+                    agent any
                     steps {
                         echo "TODO: integration tests"
                     }
                 }
 
                 stage('User Interface tests') { 
+                    agent any
                     steps {
                         echo "TODO: user interface tests"
                     }
